@@ -1,0 +1,53 @@
+Router 0
+enable
+configure terminal
+
+interface FastEthernet0/0
+ip address 192.168.60.1 255.255.255.224
+no shutdown
+exit
+
+interface FastEthernet1/0
+ip address 192.168.60.33 255.255.255.224
+no shutdown
+exit
+
+interface Serial2/0
+ip address 192.168.60.129 255.255.255.252
+no shutdown
+exit
+
+-------------------------------------------------
+
+ip route 192.168.60.64 255.255.255.224 192.168.60.130
+ip route 192.168.60.96 255.255.255.224 192.168.60.130
+
+end
+
+---------------------------------------------------------------------------------------
+
+Router 1
+enable
+configure terminal
+
+interface FastEthernet0/0
+ip address 192.168.60.65 255.255.255.224
+no shutdown
+exit
+
+interface FastEthernet1/0
+ip address 192.168.60.97 255.255.255.224
+no shutdown
+exit
+
+interface Serial2/0
+ip address 192.168.60.130 255.255.255.252
+no shutdown
+exit
+
+-----------------------------------------------------------
+
+ip route 192.168.60.0 255.255.255.224 192.168.60.129
+ip route 192.168.60.32 255.255.255.224 192.168.60.129
+
+end

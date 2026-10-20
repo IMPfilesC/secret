@@ -1,0 +1,137 @@
+EXPERIMENT 7: OSPF CONFIGURATION
+=================================
+
+STEP 1: ROUTER0 IP CONFIGURATION
+enable
+configure terminal
+interface fastethernet 0/0
+ ip address 10.0.0.1 255.0.0.0
+ no shutdown
+exit
+interface serial 2/0
+ ip address 172.16.0.1 255.255.0.0
+ no shutdown
+exit
+interface serial 3/0
+ ip address 172.20.0.1 255.255.0.0
+ no shutdown
+exit
+end
+
+STEP 2: ROUTER1 IP CONFIGURATION
+enable
+configure terminal
+interface fastethernet 0/0
+ ip address 20.0.0.1 255.0.0.0
+ no shutdown
+exit
+interface serial 2/0
+ ip address 172.16.0.2 255.255.0.0
+ no shutdown
+exit
+interface serial 3/0
+ ip address 172.18.0.1 255.255.0.0
+ no shutdown
+exit
+end
+
+STEP 3: ROUTER2 IP CONFIGURATION
+enable
+configure terminal
+interface fastethernet 0/0
+ ip address 30.0.0.1 255.0.0.0
+ no shutdown
+exit
+interface serial 3/0
+ ip address 172.20.0.2 255.255.0.0
+ no shutdown
+exit
+interface serial 2/0
+ ip address 172.18.0.2 255.255.0.0
+ no shutdown
+exit
+end
+
+STEP 4: OSPF CONFIGURATION — ROUTER0
+enable
+configure terminal
+router ospf 10
+ network 10.0.0.0 0.255.255.255 area 0
+ network 172.16.0.0 0.0.255.255 area 0
+ network 172.20.0.0 0.0.255.255 area 0
+end
+
+STEP 5: OSPF CONFIGURATION — ROUTER1
+enable
+configure terminal
+router ospf 10
+ network 20.0.0.0 0.255.255.255 area 0
+ network 172.16.0.0 0.0.255.255 area 0
+ network 172.18.0.0 0.0.255.255 area 0
+end
+
+STEP 6: OSPF CONFIGURATION — ROUTER2
+enable
+configure terminal
+router ospf 10
+ network 30.0.0.0 0.255.255.255 area 0
+ network 172.20.0.0 0.0.255.255 area 0
+ network 172.18.0.0 0.0.255.255 area 0
+end
+
+STEP 7: BANDWIDTH CONFIGURATION — ROUTER0
+enable
+configure terminal
+interface serial 2/0
+ bandwidth 5000
+exit
+interface serial 3/0
+ bandwidth 75000
+end
+
+STEP 8: BANDWIDTH CONFIGURATION — ROUTER1
+enable
+configure terminal
+interface serial 2/0
+ bandwidth 5000
+exit
+interface serial 3/0
+ bandwidth 2500
+end
+
+STEP 9: BANDWIDTH CONFIGURATION — ROUTER2
+enable
+configure terminal
+interface serial 3/0
+ bandwidth 75000
+exit
+interface serial 2/0
+ bandwidth 2500
+end
+
+STEP 10: VERIFICATION COMMANDS
+Run on each router:
+show ip interface brief
+show ip route
+show ip route ospf
+show ip ospf neighbor
+show ip ospf database
+show ip ospf interface serial 2/0
+show ip ospf interface serial 3/0
+show ip ospf interface fastethernet 0/0
+
+STEP 11: CONNECTIVITY TEST
+From a PC, open Desktop > Command Prompt and ping a host on another LAN,
+using the destination IP address configured in the topology.
+
+Example shown in the experiment:
+ping 30.0.0.2
+
+If testing from a router CLI, use the appropriate reachable destination:
+ping 30.0.0.2
+
+From a PC command prompt or router CLI:
+ping 30.0.0.2
+
+From a PC command prompt:
+tracert 30.0.0.2

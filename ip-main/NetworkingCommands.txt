@@ -1,0 +1,35 @@
+sudo su
+
+ifconfig
+ping 127.0.0.1
+
+ifconfig ens33 down
+ifconfig
+ifconfig ens33 up
+ifconfig
+ifconfig ens33 192.168.152.130 netmask 255.255.255.0 up
+
+ifconfig ens33 down
+ifconfig ens33 up
+
+ip route add 192.168.45.0/24 via 192.168.152.130
+ip route
+
+netstat -a
+netstat -l
+netstat -t
+netstat -u
+netstat -r
+
+traceroute 192.168.152.5
+
+ping 192.168.152.130
+ping -c 9 192.168.152.130
+ping -c 1 192.168.152.130
+ping -s 36 192.168.152.130
+ping -s 56 192.168.152.130
+
+ping www.google.com
+
+arp -a -i ens33
+ifconfig ens33

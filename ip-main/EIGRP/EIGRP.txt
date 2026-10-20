@@ -1,0 +1,101 @@
+Router0 Configuration
+
+enable
+configure terminal
+
+interface FastEthernet 0/0
+ ip address 10.0.0.1 255.0.0.0
+ no shutdown
+exit
+
+interface Serial 2/0
+ ip address 172.16.0.1 255.255.0.0
+ no shutdown
+exit
+
+interface Serial 3/0
+ ip address 172.20.0.1 255.255.0.0
+ no shutdown
+exit
+
+---------------------------
+
+router eigrp 600
+ network 10.0.0.0
+ network 172.16.0.0
+ network 172.20.0.0
+ no auto-summary
+end
+
+
+Router1 Configuration
+
+enable
+configure terminal
+
+interface FastEthernet 0/0
+ ip address 20.0.0.1 255.0.0.0
+ no shutdown
+exit
+
+interface Serial 2/0
+ ip address 172.16.0.2 255.255.0.0
+ no shutdown
+exit
+
+interface Serial 3/0
+ ip address 172.18.0.1 255.255.0.0
+ no shutdown
+exit
+
+---------------------------
+
+router eigrp 600
+ network 20.0.0.0
+ network 172.16.0.0
+ network 172.18.0.0
+ no auto-summary
+end
+
+
+Router2 Configuration
+
+enable
+configure terminal
+
+interface FastEthernet 0/0
+ ip address 30.0.0.1 255.0.0.0
+ no shutdown
+exit
+
+interface Serial 2/0
+ ip address 172.18.0.2 255.255.0.0
+ no shutdown
+exit
+
+interface Serial 3/0
+ ip address 172.20.0.2 255.255.0.0
+ no shutdown
+exit
+
+---------------------------
+
+router eigrp 600
+ network 30.0.0.0
+ network 172.18.0.0
+ network 172.20.0.0
+ no auto-summary
+end
+
+
+Verification Commands
+
+show ip interface brief
+show running-config
+show ip route
+show ip eigrp neighbors
+show ip eigrp topology
+show ip eigrp traffic
+show ip route eigrp
+
+ping 30.0.0.2
